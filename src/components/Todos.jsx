@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeTodo, updateTodo} from '../features/todo/todoSlice'
+import { removeTodo, updateTodo, toggleComplete} from '../features/todo/todoSlice'
 
 function Todos() {
     const todos = useSelector((state)=>state.todos)
     const dispatch = useDispatch()
-
-    const [updateText, setUpdateText] = useState('')
-    const [updateId, setUpdateId] = useState(null)
-    const [complete, setComplete] = useState(null)
+    const [editTodo, setEditTodo] = useState({id:null, text:''})
 
     const handleUpdate = (todo)=>{
         dispatch(updateTodo({
-          id:todo.id,
-          text:updateText
+          id:editTodo.id,
+          text:editTodo.text
         }))
-        setUpdateId(null)
+        setEditTodo({id:null, text:''})
+    }
+
+    const handleComplete = (todo)=>{
+        dispatch(toggleComplete({
+            id:todo.id
+        }))
     }
     
   return (
@@ -24,42 +27,35 @@ function Todos() {
     <ul className="list-none">
         {todos.map((todo) => (
           <li
-            className={`${updateId===todo.id?"border-black":"border-transparent"} m-2 sm:m-3 flex justify-between items-center bg-green-800 py-2 px-2 sm:px-4 sm:py-2 rounded-lg`}
+            className={`${editTodo.id===todo.id?"border-black":"border-transparent"} m-2 sm:m-3 flex justify-between items-center bg-green-800 py-2 px-2 sm:px-4 sm:py-2 rounded-lg`}
             key={todo.id}
           >
             
               <div><input type="text" 
-              className={`${updateId!==todo.id?"border-4 border-green-950":""} ${complete?"line-through":""} p-1 sm:p-2 rounded-lg bg-green-300`}
-              value={todo.id===updateId?updateText:todo.text}
-              readOnly={todo.id!==updateId}
+              className={`${editTodo.id!==todo.id?"border-none":"border-4 border-green-950"} ${todo.completed?"line-through":"text-black"} p-1 sm:p-2 rounded-lg bg-green-300`}
+              value={todo.id===editTodo.id?editTodo.text:todo.text}
+              readOnly={todo.id!==editTodo.id}
               onChange={(e)=>{
-                  setUpdateText(e.target.value)
-                  setComplete(e.target.value)
+                  setEditTodo({...todo, text:e.target.value})
               }}
               /></div>
 
               <div className='flex gap-4' >
                 <button 
-                onClick={()=>{
-                    if(!complete){
-                      setComplete(todo.text)
-                    }
-                    else{
-                      setComplete(null)
-                    }
-                }}
-                className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}>Completed</button>
+                onClick={()=>{ handleComplete(todo)}}
+                className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}>
+                  {`${todo.completed?"undo":"Completed"}`}
+                </button>
               <button className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}
               onClick={()=>{
-                if(updateId===todo.id){
+                if(editTodo.id===todo.id){
                     handleUpdate(todo)
                 }
                 else {
-                  setUpdateText(todo.text)
-                  setUpdateId(todo.id)
+                    setEditTodo({id:todo.id, text:todo.text})
                 }
               }}
-              >{updateId!==todo.id?"Update Todo":"Save"}</button>
+              >{editTodo.id!==todo.id?"Update Todo":"Save"}</button>
 
               <button
               onClick={() => dispatch(removeTodo(todo.id))}
