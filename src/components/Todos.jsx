@@ -29,7 +29,7 @@ function Todos() {
           >
             
               <div><input type="text" 
-              className={`${complete?"line-through":""} p-1 sm:p-2 rounded-lg bg-green-300`}
+              className={`${updateId!==todo.id?"border-4 border-green-950":""} ${complete?"line-through":""} p-1 sm:p-2 rounded-lg bg-green-300`}
               value={todo.id===updateId?updateText:todo.text}
               readOnly={todo.id!==updateId}
               onChange={(e)=>{
@@ -49,7 +49,7 @@ function Todos() {
                     }
                 }}
                 className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}>Completed</button>
-              <button className="text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md"
+              <button className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}
               onClick={()=>{
                 if(updateId===todo.id){
                     handleUpdate(todo)
