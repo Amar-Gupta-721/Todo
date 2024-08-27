@@ -27,7 +27,7 @@ function Todos() {
     <ul className="list-none">
         {todos.map((todo) => (
           <li
-            className={`${editTodo.id===todo.id?"border-black":"border-transparent"} m-2 sm:m-3 flex justify-between items-center bg-green-800 py-2 px-2 sm:px-4 sm:py-2 rounded-lg`}
+            className={`${editTodo.id===todo.id?"border-black":"border-transparent"} m-2 sm:m-3 flex flex-col sm:flex-row justify-between items-center bg-green-800 py-2 px-2 sm:px-4 sm:py-2 rounded-lg`}
             key={todo.id}
           >
             
@@ -40,13 +40,13 @@ function Todos() {
               }}
               /></div>
 
-              <div className='flex gap-4' >
+              <div className='flex flex-wrap sm:flex-nowrap gap-2 sm:gap-4 mt-2 sm:mt-0 sm:ml-4' >
                 <button 
                 onClick={()=>{ handleComplete(todo)}}
-                className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}>
+                className={`text-white bg-green-500 border-0 px-2 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-sm sm:text-lg`}>
                   {`${todo.completed?"undo":"Completed"}`}
                 </button>
-              <button className={`text-white bg-green-500 border-0 px-1 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md`}
+              <button className={`text-white bg-green-500 border-0 px-2 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-sm sm:text-lg`}
               onClick={()=>{
                 if(editTodo.id===todo.id){
                     handleUpdate(todo)
@@ -59,7 +59,7 @@ function Todos() {
 
               <button
               onClick={() => dispatch(removeTodo(todo.id))}
-                className="text-white bg-green-500 border-0 px-2 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-md"
+                className="text-white bg-green-500 border-0 px-2 py-1 sm:py-1 sm:px-4 focus:outline-none hover:bg-green-950 rounded text-sm sm:text-lg"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
