@@ -23,3 +23,7 @@ Technology Stack:
 4. React js: React js is used component-based structure, allowing for reusable UI elements.
 
 5. Redux Toolkit: Redux Toolkit is utilized for state management, providing a simple and efficient way to handle global state within the application.
+
+🔗 Check It Out!
+
+The project is live! 🌐 https://todo-nine-olive.vercel.app/
