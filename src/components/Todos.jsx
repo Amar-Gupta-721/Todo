@@ -32,7 +32,7 @@ function Todos() {
           >
             
               <div><input type="text" 
-              className={`${editTodo.id!==todo.id?"border-none":"border-4 border-green-950"} ${todo.completed?"line-through":"text-black"} p-1 sm:p-2 rounded-lg bg-green-300`}
+              className={`${editTodo.id!==todo.id?"border-none":"border-4 border-green-950"} ${todo.completed?"line-through":"text-black"} text-center sm:text-left p-1 sm:p-2 rounded-lg bg-green-300`}
               value={todo.id===editTodo.id?editTodo.text:todo.text}
               readOnly={todo.id!==editTodo.id || todo.completed}
               onChange={(e)=>{
